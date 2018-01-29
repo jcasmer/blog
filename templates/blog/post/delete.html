@@ -1,0 +1,25 @@
+{% extends "base/base.html" %} {% load widget_tweaks %}  {% load static %}
+{% block content %}
+<div class="container-fluid">
+    <h2>Blog  </h2>
+    <div class="row">
+        <form method="POST" style="width:100%;">
+        {% csrf_token %}
+        
+        <input name="id-delete" id="id-delete" type="hidden" />
+
+        <label>¿Está seguro de eliminar el post seleccionado?</label>
+        <a href="{% url 'post:index'%}" class="btn btn-primary">Regresar</a>
+        <button class="btn btn-danger" type="submit">ELiminar</button>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+{% if id %}
+    $("#id-delete").val('{{id}}');
+{% endif %}
+
+ 
+</script>
+{% endblock %}

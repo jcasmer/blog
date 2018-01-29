@@ -1,0 +1,67 @@
+{% extends "base/base.html" %} {% load widget_tweaks %}  {% load static %} {% load application_extras %}
+{% block content %}
+<div class="container-fluid">
+    <form method="POST" style="width:100%;" novalidate>
+        {% csrf_token %}
+        <div class="container text-justify">
+            <br/>
+            <h2>{{post.title}} </h2>
+            <hr>
+            <p>{{post.body}}</p>            
+            <br>
+        </div>
+        <br>
+        <br>
+        <div class="container text-justify">  
+            <h3>Comentarios</h3>
+            {% for comment in comments %}               
+                                
+                <hr>
+                <h4>{{comment.name}}  </h4>
+                <span>{{comment.created_at|date:'Y-m-d h:s'}}</span>
+                <br><br>
+                <p>{{comment.commentary}}</p>            
+                <br>
+                
+            {% endfor %}
+        </div>
+        <div class="container text-justify">                
+            <div class="col-md-8">
+                <h4>Comentar</h4>
+                <hr>                            
+                    <div class="col-md-8 column blog" >                           
+                        {{ form.post_blog.as_hidden }}                            
+                    </div>    
+                    <div class="col-md-8 column" style="text-align:left">
+                        <label class="control-label" >{{ form.commentary.label }}{{ form.commentary|is_required:"* "}} </label>
+                        {{ form.commentary|add_class:"form-control text-left" }}
+                        
+                        {% for error in form.commentary.errors %}
+                            <div class="error">- {{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <br/><br/>
+                    <div class="col-md-8 column" style="text-align:left">
+                            <label class="control-label" >{{ form.name.label }}{{ form.name|is_required:"* "}} </label>
+                            {{ form.name|add_class:"form-control text-left" }}
+                            
+                            {% for error in form.name.errors %}
+                                <div class="error" >- {{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    
+                    <br clear="all"/><br clear="all"/>
+                    
+                <br>                
+                <div class="col-md-8 column" >
+                    <a href="{% url 'post:index'%}" class="btn btn-primary">Regresar</a>
+                    <button class="btn btn-success" type="submit">Guardar Comentario</button>
+                </div>
+            </div>
+        </div>
+    </form>
+   
+</div>
+<script type="text/javascript"> 
+</script>
+{% endblock %}

@@ -1,0 +1,71 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head >
+
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}  {% endblock %} Blog</title>
+    <link rel="SHORTCUT ICON" href="{% static 'images/favicon.png' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my-site.css' %}">
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+ 
+</head>
+
+<body>
+
+	<header>
+        <img class="header"alt="">
+         <div class="">
+            {% if not request.user %}
+             <p class="user" href="">Usuario: {{request.user}} </p>
+            {% endif %}
+         </div>
+   </header>
+   <div class="clearfix clear2"></div>
+   <nav class="navbar navbar-inverse">
+       <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+           </button>
+       </div>
+       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <ul class="nav navbar-nav navbar-right">
+               <li><a href="{% url 'post:index' %}">Inicio</a></li>
+               <li><a href="{% url 'post:new' %}">Nuevo Post</a></li>
+           </ul>
+       </div>
+   </nav>
+   <div class="col-md-12 sub-body">
+   {% if messages %}
+       {% for message in messages%}
+       <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}"><a class="close" data-dismiss="alert" href="#">&times;</a>{{ message|safe }}</div>
+       {% endfor %}
+   {% endif %}
+   {% block content %}
+   <h4>Bloque de contenido</h4>
+   {% endblock %}
+   </div>
+   <div class="footer">      
+       <footer>
+           Juan Esteban Castaño Mera - 2018
+       </footer>
+   </div>
+
+   <script>
+      
+   </script>
+   {% block script %}
+   <script></script>
+   {% endblock %}
+</body>
+
+</html>

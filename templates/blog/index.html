@@ -1,0 +1,30 @@
+{% extends "base/base.html" %} {% load widget_tweaks %}  {% load static %}
+{% block content %}
+<div class="container-fluid">
+    <h2>Blog  </h2>
+    <div class="row">
+        <form method="GET" style="width:100%;">
+        {% csrf_token %}
+        {% for data in results %}
+        <div class="col-md-8 min100 text-justify ">
+            <hr>
+            <p><b>{{data.title}} </b></p>
+            <p>{{data.body}}</p>
+            <a href="{% url 'post:list' data.id %}">Ver más</a>
+            <a href="{% url 'post:edit' data.id %}">Editar</a>
+            <a href="{% url 'post:delete' data.id %}">Eliminar</a>
+            <br>
+            <br>
+        </div>
+        {% endfor %}
+        
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+ 
+</script>
+{% endblock %}
+    
