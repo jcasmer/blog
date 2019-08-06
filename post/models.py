@@ -19,7 +19,7 @@ class PostBlog(BaseModel):
 
 class Comment(BaseModel):
 
-    post_blog = models.ForeignKey(PostBlog, verbose_name='Post')
+    post_blog = models.ForeignKey(PostBlog, verbose_name='Post',on_delete=models.CASCADE )
     commentary = models.TextField('Comentario', max_length=500)
     name = models.CharField('Nombre', max_length=150, validators=[IS_ALPHAVALIDATOR])
     
